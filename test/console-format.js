@@ -1,16 +1,13 @@
 'use strict';
 
-import test from 'ava';
-
 var characters = require('./fixtures/emoji-characters.js');
 var consoleFormat = require('../lib/console-format.js');
+var assert = require('assert');
 
-test('consoleFormat emoji', t => {
-  t.plan(characters.length);
-
+it('consoleFormat emoji', () => {
   characters.forEach(function (e) {
     var result = consoleFormat(`${e}:`);
 
-    t.is(result, `${e} :`);
+    assert.strictEqual(result, `${e} :`);
   });
 });

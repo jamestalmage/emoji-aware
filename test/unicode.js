@@ -1,64 +1,51 @@
 'use strict';
 
-import test from 'ava';
-
 var characters = require('./fixtures/emoji-characters.js');
 var unicode = require('../parsers/unicode-and-emoji.js');
+var assert = require('assert');
 
-test('parseOne emoji', t => {
-  t.plan(characters.length);
-
+it('parseOne emoji', () => {
   characters.forEach(function (e) {
     var result = unicode.parseOne(e);
 
-    t.is(result, e);
+    assert.strictEqual(result, e);
   });
 });
 
-test('parse string that includes emoji', t => {
-  t.plan(characters.length * 7);
-
+it('parse string that includes emoji', () => {
   characters.forEach(function (e) {
     var result = unicode.parse(`abcd${e}fg`);
 
-    t.is(result[0], 'a');
-    t.is(result[1], 'b');
-    t.is(result[2], 'c');
-    t.is(result[3], 'd');
-    t.is(result[4], e);
-    t.is(result[5], 'f');
-    t.is(result[6], 'g');
+    assert.strictEqual(result[0], 'a');
+    assert.strictEqual(result[1], 'b');
+    assert.strictEqual(result[2], 'c');
+    assert.strictEqual(result[3], 'd');
+    assert.strictEqual(result[4], e);
+    assert.strictEqual(result[5], 'f');
+    assert.strictEqual(result[6], 'g');
   });
 });
 
-test('parse unicode string', t => {
-  t.plan(1);
-
+it('parse unicode string', () => {
   var result = unicode.parse('Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!');
 
-  t.is(result[0], 'T');
+  assert.strictEqual(result[0], 'T');
 });
 
-test('parseOne fail empty string', t => {
-  t.plan(1);
-
+it('parseOne fail empty string', () => {
   var result = unicode.parseOne('');
 
-  t.false(result);
+  assert.strictEqual(result, false);
 });
 
-test('parse empty string', t => {
-  t.plan(1);
-
+it('parse empty string', () => {
   var result = unicode.parse('');
 
-  t.same(result, []);
+  assert.deepEqual(result, []);
 });
 
-test('parse fail broken string', t => {
-  t.plan(1);
-
+it('parse fail broken string', () => {
   var result = unicode.parse('\uDC00\uDC01');
 
-  t.false(result);
+  assert.strictEqual(result, false);
 });

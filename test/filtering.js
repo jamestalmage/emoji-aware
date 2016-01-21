@@ -1,42 +1,33 @@
 'use strict';
 
-import test from 'ava';
-
 var characters = require('./fixtures/emoji-characters.js');
 var utilities = require('../emoji-aware.js');
+var assert = require('assert');
 
-test('onlyEmoji fail broken string', t => {
-  t.plan(1);
-
+it('onlyEmoji fail broken string', () => {
   var result = utilities.onlyEmoji('\uDC00\uDC01');
 
-  t.false(result);
+  assert.strictEqual(result, false);
 });
 
-test('withoutEmoji fail broken string', t => {
-  t.plan(1);
-
+it('withoutEmoji fail broken string', () => {
   var result = utilities.withoutEmoji('\uDC00\uDC01');
 
-  t.false(result);
+  assert.strictEqual(result, false);
 });
 
-test('onlyEmoji', t => {
-  t.plan(characters.length);
-
+it('onlyEmoji', () => {
   characters.forEach(function (e) {
     var result = utilities.onlyEmoji(`abcd${e}fg`);
 
-    t.same(result, [e]);
+    assert.deepEqual(result, [e]);
   });
 });
 
-test('withoutEmoji', t => {
-  t.plan(characters.length);
-
+it('withoutEmoji', () => {
   characters.forEach(function (e) {
     var result = utilities.withoutEmoji(`abcd${e}fg`);
 
-    t.same(result, ['a', 'b', 'c', 'd', 'f', 'g']);
+    assert.deepEqual(result, ['a', 'b', 'c', 'd', 'f', 'g']);
   });
 });
