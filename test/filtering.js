@@ -2,7 +2,7 @@
 
 var characters = require('./fixtures/emoji-characters.js');
 var utilities = require('../emoji-aware.js');
-var assert = require('assert');
+var assert = require('power-assert');
 
 it('onlyEmoji fail broken string', () => {
   var result = utilities.onlyEmoji('\uDC00\uDC01');

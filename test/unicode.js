@@ -2,7 +2,7 @@
 
 var characters = require('./fixtures/emoji-characters.js');
 var unicode = require('../parsers/unicode-and-emoji.js');
-var assert = require('assert');
+var assert = require('power-assert');
 
 it('parseOne emoji', () => {
   characters.forEach(function (e) {

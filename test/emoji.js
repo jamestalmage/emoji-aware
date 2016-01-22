@@ -3,7 +3,7 @@
 var characters = require('./fixtures/emoji-characters.js');
 var emoji = require('../parsers/emoji.js');
 var isEmoji = require('../lib/is-emoji.js');
-var assert = require('assert');
+var assert = require('power-assert');
 
 characters.forEach(function (e) {
   it('parse one emoji ' + e, function () {
